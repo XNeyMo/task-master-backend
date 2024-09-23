@@ -7,10 +7,10 @@ export const authRequired = (req: Request, res: Response, next: NextFunction) =>
 	const { token } = req.cookies;
 	if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
-	jwt.verify(token, config.SECRET, (err, user) => {
+	jwt.verify(token, config.SECRET, (err: any, user: any) => {
 		if (err) return res.status(401).json({ message: 'Unauthorized' });
 
-		req.user = user;
+		req.body.userId = user.id;
 		next();
 	})
 }
