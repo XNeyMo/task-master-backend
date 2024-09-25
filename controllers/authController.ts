@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { config } from '../shared/config';
 
 import { createToken } from '../utils/jwt';
 import User from '../models/user';
@@ -69,5 +70,24 @@ export const profile = async (req: Request, res: Response) => {
 		id: userFound._id,
 		username: userFound.username,
 		email: userFound
+	});
+};
+
+export const verify = async (req: Request, res: Response) => {
+	const { token } = req.cookies;
+
+	if (!token) return res.status(400).json({ message: 'Invalid token' });
+
+	jwt.verify(token, config.SECRET, async (err: any, user: any) => {
+		if (err) return res.status(400).json({ message: 'Invalid token' });
+
+		const userFound = await User.findById(user.id);
+		if (!userFound) return res.status(400).json({ message: 'User not found' });
+
+		res.json({
+			id: userFound._id,
+			username: userFound.username,
+			email: userFound.email
+		});
 	});
 };

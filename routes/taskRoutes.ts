@@ -8,6 +8,6 @@ taskRoute.get('/tasks', authRequired, getTasks);
 taskRoute.post('/tasks', authRequired, createTask);
 taskRoute.delete('/tasks/:id', authRequired, deleteTask);
 taskRoute.get('/tasks/:id', authRequired, getTask);
-taskRoute.get('/tasks/:id', authRequired, updateTask);
+taskRoute.put('/tasks/:id', authRequired, updateTask);
 
 export default taskRoute;
