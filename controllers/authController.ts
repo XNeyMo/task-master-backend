@@ -53,7 +53,7 @@ export const register = async (req: Request, res: Response) => {
 			email: userSaved.email
 		});
 	} catch (err) {
-		res.status(500).json({ message: 'Error' });
+		res.status(500).json({ message: 'Email has been previously registered' });
 	}
 };
 
