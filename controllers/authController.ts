@@ -19,6 +19,7 @@ export const login = async (req: Request, res: Response) => {
 		const token = await createToken({ id: userFound._id });
 
 		res.cookie('token', token, {
+			httpOnly: true,
 			secure: true,
 			sameSite: 'none'
 		})
@@ -49,6 +50,7 @@ export const register = async (req: Request, res: Response) => {
 		const token = await createToken({ id: userSaved._id });
 
 		res.cookie('token', token, {
+			httpOnly: true,
 			secure: true,
 			sameSite: 'none'
 		})
