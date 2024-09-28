@@ -18,7 +18,7 @@ export const login = async (req: Request, res: Response) => {
 
 		const token = await createToken({ id: userFound._id });
 
-		res.cookie('token', token, { partitioned: true, sameSite: 'none', secure: true });
+		res.cookie('token', token, { partitioned: true, sameSite: 'none' });
 
 		res.json({
 			id: userFound._id,
